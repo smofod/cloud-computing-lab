@@ -11,6 +11,7 @@ def show_menu() -> None:
     menu = [
         "1. 打招呼",
         "2. 计算两数之和",
+        "3. 计算一组数的平均值",
         "0. 退出",
     ]
     print("=" * 30)
@@ -23,6 +24,13 @@ def show_menu() -> None:
 def add(a: float, b: float) -> float:
     """计算两数之和。"""
     return a + b
+
+
+def average(numbers: list[float]) -> float:
+    """计算一组数的平均值；空列表抛出 ValueError。"""
+    if not numbers:
+        raise ValueError("列表不能为空，无法计算平均值。")
+    return sum(numbers) / len(numbers)
 
 
 def main() -> None:
@@ -39,6 +47,13 @@ def main() -> None:
                 print(f"{a} + {b} = {add(a, b)}")
             except ValueError:
                 print("输入的不是有效数字，请重试。")
+        elif choice == "3":
+            raw = input("请输入一组数字，用空格分隔: ")
+            try:
+                nums = [float(x) for x in raw.split()]
+                print(f"平均值 = {average(nums):.2f}（共 {len(nums)} 个数）")
+            except ValueError as err:
+                print(f"输入有误：{err}")
         elif choice == "0":
             print("再见！")
             break
